@@ -248,16 +248,14 @@ input[type=checkbox] {
 $hatchery_id= $_POST['hatchery_id'];
 $batch= $_POST['batch'];
 $count= $_POST['count'];
-$hdate= $_POST['hdate'];
-$address= $_POST['address'];
+
 //$login=$_SESSION['id'];
 $d=date("Y/m/d");
 ?>
 <input type="hidden" name="hatchery_id" value="<?php echo $hatchery_id;?>">
 <input type="hidden" name="batch" value="<?php echo $batch;?>">
 <input type="hidden" name="count" value="<?php echo $count;?>">
-<input type="hidden" name="hdate" value="<?php echo $hdate;?>">
-<input type="hidden" name="address" value="<?php echo $address;?>">
+
                     <div class="row item">
                      
                         <div class="col" >
@@ -280,21 +278,7 @@ $d=date("Y/m/d");
                                         </td>
                                     </tr>
                                      <tr>
-                                        <td>
-                                           Delivery Date
-                                        </td>
-                                        <td style="font-size: 20px;">
-                                            <?php echo $hdate; ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Delivery Address
-                                        </td>
-                                        <td style="font-size: 20px;">
-                                            <?php echo $address; ?>
-                                        </td>
-                                    </tr>
+                                      
                                     
                                         <?php
                        require("DbConnect.php");

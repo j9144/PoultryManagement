@@ -31,6 +31,7 @@ session_start();
 					<li><a href="myaccount.php"><i class="icon fa fa-user"></i>My Account</a></li>
 					<li><a href="my-wishlist.php"><i class="icon fa fa-heart"></i>Wishlist</a></li>
 					<li><a href="my-notifications.php"><i class="icon fa fa-bell"></i>Notification</a></li>
+					<li><a href="map.php"><i class="icon fa fa-map"></i>Location</a></li>
 					<li><a href="my-cart.php"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
 					<?php if(strlen($_SESSION['Email'])==0)
     {   ?>

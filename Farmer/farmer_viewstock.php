@@ -19,7 +19,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Farmer| Add Bird</title>
+      <title>Farmer| View Stock</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -126,7 +126,8 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px;padding-left:200px; color:black; font-size:20px; width:100%'>";
+  echo "
+  <table cellpadding='0' cellspacing='0' border='0' class='table table-bordered table-striped	 display' style = 'width:100%'>";
   echo "<tr>";
   echo"<th> COUNT</th>";
   echo"<th> BREED</th>";

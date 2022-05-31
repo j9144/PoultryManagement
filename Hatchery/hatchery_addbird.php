@@ -19,7 +19,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Supplier| View Stock</title>
+      <title>Hatchery| Add Bird</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -47,6 +47,19 @@ session_start();
   transition-duration: 0.4s;
 }
 
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 
   input[type=text], select {
@@ -112,12 +125,28 @@ div.main {
             <form action="hatchaddbird.php" method="post">
               <CENTER><h3>ADD BIRDS</h3></CENTER>
               <label for="count">Birds Count</label>
-              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter birds count " required="">
+              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter birds count " style = "width:210px" required="">
+              <label for="breed">Select Breed</label>
+              <select class="form-control" name="breed" id = "breed" required="" style = "width:220px;color:black">
+                                 <option>--Select--</option>
+                                 <?php 
+                                    include "../DbConnect.php";  
+                                    
+                                    $records = mysqli_query($con, " SELECT Breed_Id, Breed_Type FROM tbl_breed");  
+                                    
+                                    while($row = mysqli_fetch_array($records))
+                                    {
+                                        echo "<option value='". $row['Breed_Id'] ."'>" .$row['Breed_Type'] ."</option>";  
+                                    }	
+                                     ?>
+                              </select>
+
+              
               <label for="bdate">Batch Date</label>
-              <input class="form-control input-lg" type="date" id="bdate" name="bdate" placeholder="Date of Arrival of birds " required="">
+              <input class="form-control input-lg" type="date" id="bdate" name="bdate" placeholder="Date of Arrival of birds " style = "width:210px" required="">
               <label for="weight">Birds Price</label>
-              <input type="number" step=".01" class="form-control input-lg" id="price" name="price" placeholder="Enter birds Price" required="">
-              <input type="submit" value="Add Bird">
+              <input type="number" step=".01" class="form-control input-lg" id="price" name="price" placeholder="Enter birds Price" style = "width:210px" required="">
+              <br><input type="submit" value="Add Bird" style = "width:220px">
             </form>
           </div>
       </div>

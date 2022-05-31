@@ -70,6 +70,7 @@ session_start();
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  color: black;
 }
 
 input[type=submit] {
@@ -115,34 +116,35 @@ div.main {
                         <h3>Add Bird</h3>
                      </div> <br>
    
-   
+                 
     <div class="tm-main-section light-gray-bg">
      
       <div class="container" id="main"  style = "margin-top:-50px;margin-left:-150px;width:900px;">
          
           <div id="cat">
-            <form action="addbird.php" method="post">
+            <form action="addbird.php" method="post" enctype="multipart/form-data">
               <CENTER><h3>ADD BIRDS</h3></CENTER>
               <label for="count">Birds Count</label>
-              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter birds count " required="">
-              <label for="count">Select Breed</label>
-             <?php
-                $sql1="SELECT Breed_Id, Breed_Type FROM tbl_breed";
-                $res1=mysqli_query($con,$sql1);
-                ?>
-              <select class="form-control input-lg" name="breed" id="breed" style = "width:220px">
-                <?php
-                 while($row=mysqli_fetch_array($res1))
-                {
-                  ?>
-                  <option value="<?php echo $row['Breed_Id'];?>"><?php echo $row['Breed_Type']; ?></option>
-                  <?php
-                // $id=$row['StaffReg_Id'];
-                }
-                ?>
-              </select>
+              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter birds count " style = "width:210px" required="">
+              <label for="breed">Select Breed</label>
+              <select class="form-control" name="breed" id = "breed" required="" style = "width:220px;color:black">
+                                 <option>--Select--</option>
+                                 <?php 
+                                    include "DbConnect.php";  
+                                    
+                                    $records = mysqli_query($con, " SELECT Breed_Id, Breed_Type FROM tbl_breed");  
+                                    
+                                    while($row = mysqli_fetch_array($records))
+                                    {
+                                        echo "<option value='". $row['Breed_Id'] ."'>" .$row['Breed_Type'] ."</option>";  
+                                    }	
+                                     ?>
+                              </select>
+
+            
+
               <label for="bdate">Batch Date</label>
-              <input class="form-control input-lg" type="date" id="bdate" name="bdate" placeholder="Date of Arrival of birds " required="">
+              <input class="form-control input-lg" type="date" id="bdate" name="bdate" placeholder="Date of Arrival of birds " style = "width:210px" required="">
               <br>
               <input type="submit" value="Add Bird" style = "width:220px">
             </form>

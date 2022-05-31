@@ -8,13 +8,15 @@ if(
   die('invalid data');
 
   else{
-//$wholesaler_id = $_POST['wholesaler_id'];
+    $records = mysqli_query($con, " SELECT Breed_Id, Breed_Type FROM tbl_breed");  
+                                    
+    $row = mysqli_fetch_array($records);
+    $breedid = $_SESSION['Breed_Id']=$row['Breed_Id'];
 $farmer= $_POST['farmer'];
+//  $breedid = $_POST['breed'];
 $batch= $_POST['batch'];
 $count= $_POST['count'];
-$wdate= $_POST['hdate'];
-$address= $_POST['address'];
-//$typeid=$_SESSION['Type_Id'];
+
 $d=date("Y/m/d");
 
 
@@ -30,7 +32,7 @@ if($quantity>=$count){
 $var = $quantity - $count;
 // echo($quantity."  ");
 //   echo ($var."   ");
-  $q= "INSERT INTO `tbl_orderchickswholesaler`(`Farmer_Id`, `Bird_Id`, `WCount`, `WDate`, `WOrderDate`, `WAddress`,`Status`) VALUES ($farmer,$batch,$count,'$wdate','$d','$address',0)";
+  $q= "INSERT INTO `tbl_orderchickswholesaler`(`Farmer_Id`,`Breed`, `Bird_Id`, `WCount`, `WOrderDate`,`Status`) VALUES ($farmer,$breedid,$batch,$count,'$d',0)";
   $result = mysqli_query($con, $q);
 
    $sql1 = "update `tbl_addbird` set `BirdCount` = $var  where `Bird_Id` = $batch ";
@@ -41,7 +43,7 @@ $var = $quantity - $count;
     
     die("RESULT will not get <br>$q");
   } else {
-    //header("Location: wview_order.php");
+    header("Location: wview_order.php");
   }
     
 }

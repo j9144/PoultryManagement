@@ -76,7 +76,19 @@ background-color: #99ff33; /* Green */
   transition-duration: 0.4s;
 }
 
-
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
   input[type=text], select {
   width: 100%;
@@ -148,7 +160,7 @@ div.main {
   //$login=$_SESSION['id'];
   // echo $login;
 // =9
-  $sql1="SELECT tbl_staffregister.Name,tbl_feed.Feed_Type,tbl_orderfeedsupplier.SQuantity,tbl_orderfeedsupplier.SOrderDate,tbl_orderfeedsupplier.Status,tbl_orderfeedsupplier.SOrder_Id FROM tbl_staffregister  JOIN tbl_orderfeedsupplier ON tbl_staffregister.StaffReg_Id = tbl_orderfeedsupplier.Supplier_Id JOIN tbl_feed  ON  tbl_feed.Feed_Id = tbl_orderfeedsupplier.SType_Id";
+  $sql1="SELECT tbl_staffregister.Name,tbl_feed.Feed_Type,tbl_orderfeedsupplier.SQuantity,tbl_orderfeedsupplier.SOrderDate,tbl_orderfeedsupplier.Status,tbl_orderfeedsupplier.SOrder_Id FROM tbl_staffregister  JOIN tbl_orderfeedsupplier ON tbl_staffregister.StaffReg_Id = tbl_orderfeedsupplier.Supplier_Id JOIN tbl_feed  ON  tbl_feed.Feed_Id = tbl_orderfeedsupplier.SType_Id where UStatus = 0";
   $res1=mysqli_query($con,$sql1);
   $n=mysqli_num_rows($res1);
 if($n==0)
@@ -157,14 +169,17 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px;padding-left:100px; color:black; font-size:20px;margin-left:-200px; width:100%'>";
-  echo "<tr>";
-  echo"<th> FARMER NAME</th>";
+  ?>
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" style = "width:150%">
+ <?php
+  echo "<tr style=width:70%;>";
+  echo"<th style=width:70%;> FARMER NAME</th>";
   echo"<th>FOOD TYPE</th>";
   echo"<th>QUANTITY</th>";
 echo"<th>ORDERED DATE</th>";
 
 echo"<th>STATUS</th>";
+echo"<th style=width:70%;>UPDATE STATUS</th>";
 echo"<th>ACTION</th>";
   echo"</tr>";
   while($row=mysqli_fetch_array($res1))
@@ -183,52 +198,101 @@ echo"<th>ACTION</th>";
   echo "<td>&nbsp;",$row['Feed_Type'],"</td>";   
   echo "<td>&nbsp;",$row['SQuantity'],"</td>";
      echo "<td>&nbsp;",$row['SOrderDate'],"</td>";
-        
-     $status=$row['Status'];
-       $id=$row['SOrder_Id'];
-     if($status==0)
-     {
-       echo "<td>&nbsp; <input type='button' class='buttonn' value='Not Confirmed'></td>";
-      ?> <td><a href='supplier_confirmorder.php?id=<?php echo $row['SOrder_Id']; ?>' class='buttonn' style='background-color:#1aff1a;'>Confirm Order</a>
-       
-       <a href='supplier_rejectorder.php?id=<?php echo $row['SOrder_Id']; ?>' class='buttonn1'>Reject Order</a></td>
-     <?php
-      }
-      elseif($status==1)
-     {
-       echo "<td> <input type='button' class='buttonn' value='To Be Delivered'>
-       </td>";
-
-     ?> 
-     <td> <a href='supplier_finishorder.php?id=<?php echo $row['SOrder_Id']; ?>' class='buttonn2' style='color:black;'>Mark as Completed</a></td>";
-     <?php
-    }
-      elseif($status==2)
-     {
-       echo "<td> <input type='button'  class='buttonn1' value='Order Rejected' ></td>";
-      ?>
-       <td> <a href="supplier_cancelorder).php?id=<?php echo $row['SOrder_Id']; ?>" class='buttonn1' style='color:black;'>DELETE</a></td>
+      ?>  
+    <td style="width:70%;">
       <?php
-      }
-     elseif($status==3)
-     {
-       echo "<td> <input type='button'  class='button1' style='background-color:#cccc00;' value='Order Completed' ></td>";
-      ?>
-      <td> <a href='viewsupplierfarmerbill.php?id=<?php echo $row['SOrder_Id'];?>' class='buttonn' style='color:black; background-color:#cccc00;'>View Bill</a></td>";
-    <?php 
-    }
-   
-// <br><a href='suplierbillfood.php'>view bill</a>
+       $id=$row['SOrder_Id'];
+       
+       if($row['Status']=='Approved'){
+           echo "<span class='badge badge-pill badge-info'> Approved</span>";
+           
+       }
+       else if($row['Status']=='Processing'){
+           echo "<span class='badge badge-pill badge-primary'> Processing </span>";
+       }
      
-  ?>
-   
- <?php echo"</tr>";
+         
+         
+       else{
+           echo "<span class='badge badge-pill badge-danger'> Rejected</span>";
+       }
+         
+         
+     
 
-  }
-  echo"  </table>";
+       ?>
+     </td>
+  
+
+     <td><form method="post"><select class = "form-control" name="ustatus">
+                 <option value="">Select One</option>
+                 <option value="Rejected">Rejected</option>
+                     <option value="Approved">Approved</option>
+                     <option value="Processing">Processing</option>
+                     
+                    
+                 </select></td>
+     <!-- <?php echo $row['Order_Id']; ?> -->
+
+   <td class="text-center">
+                 <div class="btn-group">
+                   <button value="<?php echo $row['SOrder_Id']; ?>" type="submit"  name="mbtn" class="btn btn-info btn-flat mbtn">
+                       <i class="icon-edit"></i>Update
+                     </button>
+                  
+                     <!-- <a href="edit_order.php?id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+                       <i class="icon-edit"></i>
+                     </a> -->
+                      <button value ="<?php echo $row['SOrder_Id'] ?>" type="submit" class="btn btn-danger btn-flat delete_order" name = "del" >
+                       <i class="icon-trash"></i>Delete
+                     </button>
+                 </div>
+     </td>
+   </tr>	
+   </form>              </tr>
+                        <?php } } ?>
+                        </div>
+                  <?php      
+
+                        if(isset($_POST['mbtn']))
+{
+    $sid = $_POST['mbtn'];
+    $sstatus =$_POST['ustatus'];
+    $sql = "update `tbl_orderfeedsupplier` set `Status`='$sstatus'  where `SOrder_Id` = $sid";
+    $res = mysqli_query($con,$sql);
+    if($res){
+        echo ("<script>
+        window.location.href='supplier_vieworder.php';
+      </script>");
+    }
 }
-  ?>
-</div>
+
+if(isset($_POST['del']))
+{
+    $sid = $_POST['del'];
+    //$wstatus =$_POST['ustatus'];
+    $sql1 = "update `tbl_orderfeedsupplier` set `UStatus`='1'  where `SOrder_Id` = $sid";
+    $res1 = mysqli_query($con,$sql1);
+    if($res1){
+     
+      
+    
+      echo ("<script>
+       window.location.href='supplier_vieworder.php';
+       window.reload(1);
+      </script>");
+      
+    }
+
+    
+}
+
+?>
+  
+   
+ 
+    </table>
+
 
     </section>
          

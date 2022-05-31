@@ -19,7 +19,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Supplier| View Stock</title>
+      <title>Hatchery| View Orders</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -33,6 +33,20 @@ session_start();
   
   <!-- <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" /> -->
 <style type="text/css">
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
   .buttonn {
   background-color: #4CAF50; /* Green */
   border: none;
@@ -114,7 +128,7 @@ div.main {
   include("../DbConnect.php");
   //$login=$_SESSION['id'];
   
-  $sql1="SELECT tbl_orderbirdshatchery.HOrder_Id,tbl_staffregister.Name,tbl_orderbirdshatchery.HCount,tbl_orderbirdshatchery.HDDate,tbl_orderbirdshatchery.HOrderDate,tbl_orderbirdshatchery.HAddress,tbl_orderbirdshatchery.Status FROM `tbl_orderbirdshatchery` JOIN `tbl_staffregister`ON tbl_orderbirdshatchery.HHatchery_Id = tbl_staffregister.StaffReg_Id";
+  $sql1="SELECT tbl_orderbirdshatchery.HOrder_Id,tbl_staffregister.Name,tbl_orderbirdshatchery.HCount,tbl_orderbirdshatchery.HOrderDate,tbl_orderbirdshatchery.Status FROM `tbl_orderbirdshatchery` JOIN `tbl_staffregister`ON tbl_orderbirdshatchery.HHatchery_Id = tbl_staffregister.StaffReg_Id where UStatus = 0";
   $res1=mysqli_query($con,$sql1);
   $n=mysqli_num_rows($res1);
 if($n==0)
@@ -123,15 +137,18 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px; color:black; font-size:20px; margin-left:-150px'>";
+  ?>
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" style = "width:100%">
+  <?php
   echo "<tr>";
   echo"<th> FARMER</th>";
 
   echo"<th>COUNT</th>";
 echo"<th>ORDERED DATE</th>";
-echo"<th>DELIVERY DATE</th>";
-echo"<th>ADDRESS</th>";
+// echo"<th>DELIVERY DATE</th>";
+// echo"<th>ADDRESS</th>";
 echo"<th>STATUS</th>";
+echo"<th>UPDATE STATUS</th>";
 echo"<th>ACTION</th>";
   echo"</tr>";
   while($row=mysqli_fetch_array($res1))
@@ -152,54 +169,68 @@ echo"<th>ACTION</th>";
      echo "<td>&nbsp;",$row['HCount'],"</td>";
         
            echo "<td>&nbsp;",$row['HOrderDate'],"</td>";
-           echo "<td>&nbsp;",$row['HDDate'],"</td>";
-              echo "<td>&nbsp;",$row['HAddress'],"</td>";
-     $status=$row['Status'];
-     $id=$row['HOrder_Id'];
-     if($status==0)
-     {
-       echo "<td> <input type='button' class='buttonn' value='Not Confirmed'></td>";
-      ?>
-      <td><a href='hatchery_confirmorder.php?id=<?php echo $row['HOrder_Id']; ?>' class='button' style='background-color:#A52A2A;'>Confirm Order</a>
-     
-       <a href='hatchery_rejectorder.php?id=<?php echo $row['HOrder_Id']; ?>' class='buttonn' style='background-color:#006400;'>Reject Order</a></td>
-       <?php
-     }
-      elseif($status==1)
-     {
-      ?>
-      <td> <input type='button' class='buttonn' value='To Be Delivered'>
-       </td>
+          //  echo "<td>&nbsp;",$row['HDDate'],"</td>";
+          //     echo "<td>&nbsp;",$row['HAddress'],"</td>";
+             ?>    
+              <td class="text-center">
+							<?php 
+							if($row['Status']=='Approved'){
+									echo "<span class='badge badge-pill badge-info'> Approved</span>";
+									
+              }
+              else if($row['Status']=='Processing'){
+									echo "<span class='badge badge-pill badge-primary'> Processing </span>";
+              }
+						
+								
+								
+							else{
+									echo "<span class='badge badge-pill badge-danger'> Rejected</span>";
+              }
+								
+								
+						
 
-     <td> <a href='hatchery_finishorder.php?id=<?php echo $row['HOrder_Id']; ?>' class='buttonn' style='color:black;background-color: DodgerBlue;'>Mark as Completed</a></td>
-    <?php
-    
-    } 
-      elseif($status==2)
-     {
-      ?>
-      <td> <input type='button'  class='buttonn' value='Order Rejected' style='background-color: #cc0000;'></td>
-    <?php
-    }
-     elseif($status==3)
-     {
-       ?>
-       <td> <input type='button'  class='buttonn' style='background-color:#cccc00;' value='Order Completed' ></td>
-       <td> <a href='hatchery_viewbill.php?id=<?php echo $row['HOrder_Id']; ?>' class='buttonn' style='color:black;background-color: #8B008B;'>View Bill</a></td>
-     <?php
-      }
-     
+							?>
+						</td>
+         
 
-     
-  ?>
-   
- <?php echo"</tr>";
-
-  }
-  echo"  </table>";
-}
-  ?>
-</div>
+            <td><form method="post"><select class = "form-control" name="ustatus">
+                        <option value="">Select One</option>
+                        <option value="Rejected">Rejected</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Processing">Processing</option>
+                            
+                           
+                        </select></td>
+						
+					<td class="text-center">
+		                    <div class="btn-group">
+		                    	<button value="<?php echo $row['HOrder_Id']; ?>" type="submit"  name="mbtn" class="btn btn-info btn-flat mbtn">
+		                          <i class="icon-eye-open"></i>Update
+		                        </button>
+                          
+		                        <!-- <a href="edit_order.php?id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+		                          <i class="icon-edit"></i>
+		                        </a> -->
+		                         <button value ="<?php echo $row['HOrder_Id'] ?>" type="submit" class="btn btn-danger btn-flat delete_order" name = "del" >
+		                          <i class="icon-trash"></i>Delete
+		                        </button>
+	                      </div>
+						</td>
+					</tr>	
+          </form> 
+                                </tr>
+                               <?php } } ?>
+                               </div>
+                               
+                                   </section>
+                                        
+                               
+                                   <div style="padding: 50x;"></div>
+                                  
+                    </tbody>
+                </table>
 
     </section>
          
@@ -207,7 +238,41 @@ echo"<th>ACTION</th>";
 
 
 
+    <?php
+if(isset($_POST['mbtn']))
+{
+    $wid = $_POST['mbtn'];
+    $wstatus =$_POST['ustatus'];
+    $sql = "update `tbl_orderbirdshatchery` set `Status`='$wstatus'  where `HOrder_Id` = $wid";
+    $res = mysqli_query($con,$sql);
+    if($res){
+        echo ("<script>
+        window.location.href='hatchery_vieworder.php';
+      </script>");
+    }
+}
 
+if(isset($_POST['del']))
+{
+    $wid = $_POST['del'];
+    //$wstatus =$_POST['ustatus'];
+    $sql1 = "update `tbl_orderbirdshatchery` set `UStatus`='1'  where `HOrder_Id` = $wid";
+    $res1 = mysqli_query($con,$sql1);
+    if($res1){
+     
+      
+    
+      echo ("<script>
+       window.location.href='hatchery_vieworder.php';
+       window.reload(1);
+      </script>");
+      
+    }
+
+    
+}
+
+?>
        
     <div style="padding: 50x;"></div>
     

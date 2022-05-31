@@ -1,7 +1,7 @@
 <?php
 session_start();
    include('DbConnect.php');
-   if(strlen($_SESSION['dlogin'])==0)
+   if(strlen($_SESSION['alogin'])==0)
    	{	
    header('location:index.php');
    }
@@ -34,7 +34,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Distributor| Order List</title>
+      <title>Admin| Notifications</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">

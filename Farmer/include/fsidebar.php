@@ -41,9 +41,27 @@
 
       <ul class="widget widget-menu unstyled">
          <li>
+            <a href="farmer_viewordersupplier.php" style = "color:white">
+            <i class="menu-icon icon-list" style = "color:white"></i>
+            View Order Supplies
+            </a>
+         </li>
+      </ul>
+
+      <ul class="widget widget-menu unstyled">
+         <li>
             <a href="farmer_orderbirds.php" style = "color:white">
             <i class="menu-icon icon-shopping-cart" style = "color:white"></i>
             Order Birds from Hatchery
+            </a>
+         </li>
+      </ul>
+
+      <ul class="widget widget-menu unstyled">
+         <li>
+            <a href="farmer_vieworderhatchery.php" style = "color:white">
+            <i class="menu-icon icon-list" style = "color:white"></i>
+           View Order Hatchery
             </a>
          </li>
       </ul>

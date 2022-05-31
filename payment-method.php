@@ -9,7 +9,7 @@ header('location:login.php');
 }
 else{
 	if (isset($_POST['submit'])) {
-
+		
 		mysqli_query($con,"update tbl_orders set PaymentMethod='".$_POST['paymethod']."' where User_Id='".$_SESSION['userid']."' and PaymentMethod is null ");
 		unset($_SESSION['cart']);
 		if($_POST['paymethod'])

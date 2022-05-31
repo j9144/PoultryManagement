@@ -19,7 +19,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Supplier| View Stock</title>
+      <title>Hatchery| View Stock</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -112,7 +112,7 @@ div.main {
 
   //include("dbconnection.php");
     //$login=$_SESSION['id'];
-  $sql1="select * from `tbl_hatchery` where Hatchery_Count>0";
+  $sql1="select tbl_hatchery.Breed,tbl_hatchery.Hatchery_Count,tbl_hatchery.Hatchery_Date,tbl_hatchery.Hatchery_Price,tbl_breed.Breed_Id,tbl_breed.Breed_Type from `tbl_hatchery` join tbl_breed on tbl_hatchery.Breed = tbl_breed.Breed_Id  where Hatchery_Count>0";
   $res1=mysqli_query($con,$sql1);
    $n=mysqli_num_rows($res1);
 if($n==0)
@@ -121,8 +121,11 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px;padding-left:500px; color:black; font-size:20px;'>";
+  ?>
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" style = "width:100%">
+  <?php
   echo "<tr>";
+  echo"<th> BREED</th>";
   echo"<th> COUNT</th>";
   echo"<th>BATCH DATE</th>";
   echo"<th>PRICE</th>";
@@ -132,6 +135,7 @@ else
   {
      
   echo"<tr >";
+  Echo"<td>",$row['Breed_Type'],"</td>";
   echo"<td>",$row['Hatchery_Count'],"</td><td>&nbsp;",$row['Hatchery_Date'],"</td>";
   
      echo "<td>&nbsp;",$row['Hatchery_Price'],"</td>";

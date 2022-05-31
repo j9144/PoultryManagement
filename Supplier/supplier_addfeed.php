@@ -19,7 +19,7 @@ session_start();
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Supplier| View Orders</title>
+      <title>Supplier| Add Feeds</title>
       <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
       <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -49,6 +49,19 @@ session_start();
   transition-duration: 0.4s;
 }
 
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 
   input[type=text], select {
@@ -114,7 +127,7 @@ div.main {
                 $res1=mysqli_query($con,$sql1);
                 ?>
               <label for="count">Select Feed Type</label>
-              <select class="form-control input-lg" name="type" id="type" style = "width:220px">
+              <select class="form-control " name="type" id="type" style = "width:220px">
                 <?php
                  while($row=mysqli_fetch_array($res1))
                 {
@@ -127,12 +140,12 @@ div.main {
               
 
               <label for="quantity">Feed Quantity(in Kg)</label>
-              <input type="number" class="form-control input-lg" id="quantity" name="quantity" placeholder="Enter Quantity ">
+              <input type="number" class="form-control input-lg" id="quantity" name="quantity"  style = "width:210px" placeholder="Enter Quantity ">
               <label for="edate">Expiry date</label>
-              <input class="form-control input-lg" type="date" id="edate" name="edate" placeholder="Date of Expiry ">
+              <input class="form-control input-lg" type="date" id="edate" name="edate" placeholder="Date of Expiry " style = "width:210px">
               <label for="price">Price(in Rs)</label>
-              <input type="number" step=".01" class="form-control input-lg" id="price" name="price" placeholder="Enter Price ">
-              <input type="submit" name = "sub" value="Add Feed">
+              <input type="number" step=".01" class="form-control input-lg" id="price" name="price" style = "width:210px" placeholder="Enter Price ">
+              <br> <input type="submit" name = "sub" value="Add Feed" style = "width:220px">
             </form>
           </div>
       </div>

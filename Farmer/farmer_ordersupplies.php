@@ -114,7 +114,7 @@ div.main {
                 $sql1="SELECT StaffReg_Id, Name FROM tbl_staffregister WHERE Type_Id=3";
                 $res1=mysqli_query($con,$sql1);
                 ?>
-              <select class="form-control input-lg" name="supplier" id="supplier" style = "width:220px">
+              <select class="form-control input-lg" name="supplier" id="supplier" style = "width:220px;">
                 <?php
                  while($row=mysqli_fetch_array($res1))
                 {
@@ -161,7 +161,7 @@ div.main {
               
             <label for="quantity">Feed Quantity(in Kg)</label>
 
-              <input type="number" class="form-control input-lg" id="quantity" name="quantity" placeholder="Enter Quantity " required="please">
+              <input type="number" class="form-control input-lg" id="quantity" name="quantity" placeholder="Enter Quantity " style = "width:210px" required="please">
 
               <!-- <label for="ddate">Date of Delivery</label>
 

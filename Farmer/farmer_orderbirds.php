@@ -133,7 +133,7 @@ div.main {
                 $sql1="SELECT Breed_Id, Breed_Type FROM tbl_breed";
                 $res1=mysqli_query($con,$sql1);
                 ?>
-              <select class="form-control input-lg" name="breed" id="breed" style = "width:220px">
+              <select class="form-control input-lg" name="breed"  style = "width:220px">
                 <?php
                  while($row=mysqli_fetch_array($res1))
                 {
@@ -163,12 +163,12 @@ div.main {
               
             <label for="quantity">No. of Chicks</label>
 
-              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter Count " required="please">
+              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter Count " style = "width:210px" required="please">
 
               
-              <label for="weight">Delivery Address</label>
+              <!-- <label for="weight">Delivery Address</label>
 
-             <input type = "text"   class="form-control input-lg" id="address" name="address" style = "width:220px" value = "<?php echo $row['Address'];?>"/>
+             <input type = "text"   class="form-control input-lg" id="address" name="address" style = "width:220px" value = "<?php echo $row['Address'];?>"/> -->
              <br>
               <input type="submit" value="Order" name = "submit" style = "width:220px">
               

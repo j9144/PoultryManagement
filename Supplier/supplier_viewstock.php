@@ -122,7 +122,9 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px;padding-left:400px; color:black; font-size:20px;margin-left:-200px;width:100%'>";
+  ?>
+  <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display" style = "width:150%">
+ <?php
   echo "<tr>";
   echo"<th> TYPE</th>";
   echo"<th> QUANTITY</th>";

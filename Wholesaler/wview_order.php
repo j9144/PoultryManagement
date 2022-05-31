@@ -114,7 +114,7 @@ div.main {
   include("DbConnect.php");
  // $login=$_SESSION['id'];
    // echo $login;
-  $sql1="SELECT tbl_orderchickswholesaler.WOrder_Id,tbl_orderchickswholesaler.Farmer_Id,tbl_orderchickswholesaler.WCount,tbl_orderchickswholesaler.WDate,tbl_orderchickswholesaler.WOrderDate,tbl_orderchickswholesaler.WAddress,tbl_orderchickswholesaler.Status,tbl_staffregister.Name FROM `tbl_orderchickswholesaler` JOIN tbl_staffregister ON tbl_orderchickswholesaler.Farmer_Id=tbl_staffregister.StaffReg_Id";
+  $sql1="SELECT tbl_orderchickswholesaler.WOrder_Id,tbl_orderchickswholesaler.Farmer_Id,tbl_orderchickswholesaler.Breed,tbl_orderchickswholesaler.WCount,tbl_orderchickswholesaler.WOrderDate,tbl_orderchickswholesaler.Status,tbl_staffregister.Name,tbl_breed.Breed_Type FROM `tbl_orderchickswholesaler` JOIN tbl_staffregister ON tbl_orderchickswholesaler.Farmer_Id=tbl_staffregister.StaffReg_Id JOIN tbl_breed ON tbl_orderchickswholesaler.Breed = tbl_breed.Breed_Id";
   $res1=mysqli_query($con,$sql1);
   $n=mysqli_num_rows($res1);
 if($n==0)
@@ -123,16 +123,17 @@ if($n==0)
 }
 else
 {
-  echo "<table class='table table-responsive' id='tbl' class='table' style='display:block; padding:50px;padding-left:200px; color:black; font-size:20px;margin-left:-300px'>";
+  echo "<table cellpadding='0' cellspacing='0' border='0' class='table table-bordered table-striped	 display' style = 'width:100%''>";
   echo "<tr>";
   echo"<th> FARMER NAME</th>";
+  echo"<th> BREED</th>";
   
   echo"<th>COUNT</th>";
 echo"<th>ORDERED DATE</th>";
-echo"<th>DELIVERY DATE</th>";
-echo"<th>ADDRESS</th>";
+
 echo"<th>STATUS</th>";
 echo"<th>ACTION</th>";
+
   echo"</tr>";
   while($row=mysqli_fetch_array($res1))
   {
@@ -147,33 +148,21 @@ echo"<th>ACTION</th>";
         echo"<td>",$row1['Name'],"</td>";
       }
  
-  
+      echo "<td>&nbsp;",$row['Breed_Type'],"</td>";
      echo "<td>&nbsp;",$row['WCount'],"</td>";
-        echo "<td>&nbsp;",$row['WDate'],"</td>";
+        // echo "<td>&nbsp;",$row['WDate'],"</td>";
            echo "<td>&nbsp;",$row['WOrderDate'],"</td>";
-              echo "<td>&nbsp;",$row['WAddress'],"</td>";
-     $status=$row['Status'];
-      $id=$row['WOrder_Id'];
-     if($status==0)
+              // echo "<td>&nbsp;",$row['WAddress'],"</td>";
+              echo "<td>&nbsp;",$row['Status'],"</td>";
+    $id=$row['WOrder_Id'];
+    if($row['Status']=='Approved')
      {
-       echo "<td> <input type='button' class='buttonn' value='Order Processing' style='color:black;background-color: #9370DB;' ></td>";
-        echo "<td> <a href='wholesaler_cancelorder.php?id=$id' class='buttonn' style='color:black;background-color: #cc0000;'>Cancel order</a></td>";
-     }
-      elseif($status==1)
-     {
-       echo "<td> <input type='button' class='buttonn' value='Order confirmed'></td>";
-     }
-      elseif($status==2)
-     {
-       echo "<td> <input type='button'  class='buttonn' value='Order Rejected' style='color:black;background-color: #cc0000;' ></td>";
-     }
-      elseif($status==3)
-     {
-      echo "<td> <input type='button'  class='buttonn' value='Order Completed' style=' background-color:#008000;'></td>";
       echo "<td> <a href='viewwholesalerfarmerbill.php?id=$id' class='buttonn' style='color:black; background-color:#cccc00;'>View Bill</a></td>";
-    }
+     }
+     
+  
 
-  ?>
+   ?>
    
  <?php echo"</tr>";
 

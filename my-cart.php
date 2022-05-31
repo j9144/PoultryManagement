@@ -42,8 +42,20 @@ else{
 	$quantity=$_SESSION['quantity']=$_POST['quantity'];
 	$pdd=$_SESSION['pid'];
 	$value=array_combine($pdd,$quantity);
+	
+	for ($i = 0; $i < count($value); $i++)  {
+		$quan = $_SESSION['cart'][$pdd[$i]]['quantity'];
 
+		$result = mysqli_query($con, "SELECT * FROM `tbl_products` where id=$pdd[$i]'");
+    $row = mysqli_fetch_array($result);
+  
+	$result1 = mysqli_query($con, "UPDATE `tbl_products` SET `quantity`= `quantity` - $quan WHERE id='$pdd[$i]'");
+	//echo $result1;
+	}
 
+	
+
+	
 		foreach($value as $qty=> $val34){
 
 
@@ -51,10 +63,9 @@ else{
 mysqli_query($con,"insert into tbl_orders(User_Id,Product_Id,Quantity) values('".$_SESSION['userid']."','$qty','$val34')");
 header('location:payment-method.php');
 }
-
-
-
 }
+
+
 // $sql = "select `Order_Id` from `tbl_orders` where `User_Id` ='". $_SESSION['userid']."'";
 // $res = mysqli_query($con,$sql);
 // $row = mysqli_fetch_array($res);
@@ -222,6 +233,7 @@ if(!empty($_SESSION['cart'])){
 				$subtotal= $_SESSION['cart'][$row['id']]['quantity']*$row['productPrice']+$row['productShippingcharge'];
 				$totalprice += $subtotal;
 				$_SESSION['qnty']=$totalqunty+=$quantity;
+	
 
 				array_push($pdtid,$row['id']);
 //print_r($_SESSION['pid'])=$pdtid;exit;

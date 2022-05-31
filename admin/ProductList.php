@@ -69,7 +69,7 @@
    <tbody>
    <?php
       include ('DbConnect.php');
-      $result = mysqli_query($con,"select tbl_category.Category_name,tbl_products.name,tbl_products.productPrice from tbl_category JOIN tbl_products
+      $result = mysqli_query($con,"select tbl_category.Category_name,tbl_products.id,tbl_products.name,tbl_products.productPrice from tbl_category JOIN tbl_products
        ON tbl_category.Category_Id = tbl_products.Category_Id");
        
       

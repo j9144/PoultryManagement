@@ -391,7 +391,7 @@
                                  <?php 
                                     include "DbConnect.php";  
                                     
-                                    $records = mysqli_query($con, "SELECT Type From tbl_type");  
+                                    $records = mysqli_query($con, "SELECT Type_Id, Type From tbl_type");  
                                     
                                     while($row = mysqli_fetch_array($records))
                                     {

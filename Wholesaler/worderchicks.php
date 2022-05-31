@@ -49,7 +49,19 @@ session_start();
   transition-duration: 0.4s;
 }
 
-
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
   input[type=text], select {
   width: 100%;
@@ -117,7 +129,7 @@ div.main {
                 $sql1="SELECT StaffReg_Id, Name FROM tbl_staffregister WHERE Type_Id=1";
                 $res1=mysqli_query($con,$sql1);
                 ?>
-              <select class="form-control input-lg" name="farmer" id="farmer">
+              <select class="form-control" style = "width:220px" name="farmer" id="farmer" >
                 <?php
                  while($row=mysqli_fetch_array($res1))
                 {
@@ -128,13 +140,32 @@ div.main {
                 }
                 ?>
               </select>
+              <label for="breed">Select Breed</label>
+              <select class="form-control" name="breed" required="" style = "width:220px;color:black">
+                                 <option>--Select--</option>
+                                 <?php 
+                                    include "DbConnect.php";  
+                                    
+                                    $records = mysqli_query($con, " SELECT Breed_Id, Breed_Type FROM tbl_breed");  
+                                    
+                                    while($row = mysqli_fetch_array($records))
+                                    {
+                                        echo "<option value='". $row['Breed_Id'] ."'>" .$row['Breed_Type'] ."</option>";  
+                                    }	
+                                     ?>
+                              </select>
             
               <label for="farmer_id">Select Batch</label>
              <?php
                 $sql="SELECT Bird_Id, BirdDate,BirdCount FROM `tbl_addbird`;";
                 $res=mysqli_query($con,$sql);
                 ?>
-              <select class="form-control input-lg" name="batch" id="batch">
+
+
+
+             
+
+              <select class="form-control" name="batch" id="batch" style = "width:220px">
                 <?php
                  while($row1=mysqli_fetch_array($res))
                 {
@@ -149,7 +180,7 @@ div.main {
               
             <label for="quantity">No. of Chicks</label>
 
-              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter Count " required="please" onchange="myFunction()">
+              <input type="number" class="form-control input-lg" id="count" name="count" placeholder="Enter Count " style = "width:210px"required="please" onchange="myFunction()">
 
               <!-- <label for="ddate">Date of Delivery</label>
 

@@ -320,9 +320,9 @@ $num=mysqli_num_rows($rt);
 									</div>
 									<div class="col-sm-9">
 										<div class="stock-box">
-											<span class="value"><?php echo htmlentities($row['productAvailability']);?></span>
+											<span class="value"><?php echo htmlentities($row['productAvailability'] );?></span> 
 										</div>	
-									</div>
+</div>
 								</div><!-- /.row -->	
 							</div>
 
@@ -406,10 +406,11 @@ $num=mysqli_num_rows($rt);
 									</div>
 
 									<div class="col-sm-7">
-<?php if($row['productAvailability']=='In Stock'){?>
+
+	<?php if($row['quantity']>0){?>
 										<a href="product-details.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
 													<?php } else {?>
-							<form action="" method="post">
+							<form action="" method="post"> 
 							<button type="submit"  class="btn btn-primary d-flex mx-auto btn-lg mbtn" name="notify">
                           Notify Me
                     		</button>
